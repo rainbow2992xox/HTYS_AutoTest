@@ -40,7 +40,7 @@ var desired_doctor = {
 
 //var browser = wd.promiseChainRemote ("127.0.0.1", 4723);
 
-//安装app
+//GitHUB上没有noduel里的appium中test包
 var setup = require ("./node_modules/appium/test/functional/common/setup-base.js")
 
 
@@ -87,6 +87,14 @@ describe ("<<<<<<<<<<<<<<<<<<<<<<<<<<海苔健康(医生版)自动化测试>>>>>
         })
 
     })
+
+    it("Xxx",function(){
+
+
+        driver.waitForElement("XPath","",8000,100)
+
+    })
+
 
 
 })
