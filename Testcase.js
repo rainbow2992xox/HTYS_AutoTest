@@ -4,14 +4,15 @@
 
 module.exports = {
 
-    flow_testcae: {
+    flow_testcase: {
 
         Xpath: [
             "//UIAApplication[1]/UIAWindow[1]/UIAElement[1]",
             "//UIAApplication[1]/UIAWindow[1]/UIAElement[1]"
         ],
         log: [
-            "验证登录"
+            "1)验证登录",
+            "2)点击添加病历.txt.txt"
 
         ]
 

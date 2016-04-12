@@ -16,7 +16,7 @@ module.exports = {
 
 
 
-    udid: "5042555f60555c893e32ae3e94f0f5b4e958aa61"
+    udid: "e6ea6fd65771295279aaccdab73267650767c26f"
 
 
 };

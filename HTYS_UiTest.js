@@ -10,7 +10,7 @@ var Query = require ("./Query");
 var assert = require ("assert");
 var testcase = require ("./Testcase");
 var fs = require ("fs");
-var page = require('./wdFunction')
+var page = require ('./wdFunction')
 
 require ('colors');
 var wd;
@@ -47,7 +47,7 @@ function reg(data) {
 
 function CompareXml(source, testsetp) {
 
-    fs.readFile ("./testfile/Expect/" + testsetp, function (err, data) {
+    fs.readFile ("./testfile/Expect/" + testcase.flow_testcase.log[testsetp], function (err, data) {
 
         var expect = Reg (data)
 
@@ -62,8 +62,25 @@ function CompareXml(source, testsetp) {
 wd.addPromiseChainMethod (
     'PageHandle',
     page.Handle
-
 );
+
+wd.addPromiseChainMethod (
+    'FindElement',
+    page.findElement
+);
+
+
+//wd.addPromiseChainMethod (
+//    'ElementXpathHandle',
+//    function (driver, testcase, testsetp, mode, sleeptime, method) {
+//
+//        return this
+//            .FindElement (testcase, testsetp)
+//            .PageHandle (driver, testcase, testsetp, mode, sleeptime)
+//
+//
+//    }
+//);
 
 
 //测试设备
@@ -126,24 +143,73 @@ describe ("<<<<<<<<<<<<<<<<<<<<<<<<<<海苔健康(医生版)自动化测试>>>>>
     //
     //})
 
+    //before(function(done){
+    //
+    //    driver
+    //    //.elementByXPath("//UIAApplication[1]/UIAWindow[1]/UIAElement[1]").click()
+    //    //    .FindElement (testcase, 0).click ()
+    //    //    .PageHandle (driver, testcase, 0, "Compare", 1000)
+    //    //    .FindElement (testcase, 1).click ()
+    //        .PageHandle (driver, testcase, 1, "Actual", 1000)
+    //
+    //
+    //        //.ElementXpathHandle (driver, testcase, 0, "Save", 1000).click ()
+    //        //.waitForElement ("xpath", "//UIAApplication[1]/UIAWindow[1]/UIAElement[1]", 8000, 100).click ()
+    //        //.PageHandle (driver, testcaseLength, "Save", 1000)
+    //        //.then (function () {
+    //        //
+    //        //    console.log ("xxx");
+    //        //    driver.PageHandle (driver, 0, "Save", 1000)
+    //        //
+    //        //})
+    //
+    //
+    //        .sleep (8000)
+    //        .nodeify (done)
+    //
+    //
+    //})
+
+
     it ("测试", function (done) {
 
-            driver
-                //.elementByXPath("//UIAApplication[1]/UIAWindow[1]/UIAElement[1]").click()
-                .waitForElement ("xpath", "//UIAApplication[1]/UIAWindow[1]/UIAElement[1]", 8000, 100).click ()
-                .PageHandle (driver, 0, "Save", 1000)
-                //.then (function () {
-                //
-                //    console.log ("xxx");
-                //    driver.PageHandle (driver, 0, "Save", 1000)
-                //
-                //})
+
+        var Actual = fs.readdirSync ('./testfile/Actual')
+        var Actualarr = [];
+        Actual.forEach (function (file) {
+            if (file.endsWith ('.txt')) {
+                var data = fs.readFileSync ('./testfile/Actual/' + file, "Utf-8")
+
+                Actualarr.push (data)
+                console.log (Actualarr)
+            }
 
 
-                .sleep (8000)
-                .nodeify(done)
+        })
+
+        var Expect = fs.readdirSync ('./testfile/Expect')
+        var Expectarr = [];
+        Expect.forEach (function (file) {
+            if (file.endsWith ('.txt')) {
+                var data = fs.readFileSync ('./testfile/Expect/' + file, "Utf-8")
+
+                Expectarr.push (data)
+                console.log (Expectarr)
+            }
 
 
+        })
+
+
+        for (var i = 0; i < Expectarr.length; i++) {
+
+
+            assert.equal (Actualarr[i], Expectarr[i]);
+
+        }
+
+
+        done ()
 
 
     })

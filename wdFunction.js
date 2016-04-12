@@ -2,73 +2,121 @@
  * Created by linmengbo on 16/4/12.
  */
 
+var fs = require ("fs");
+var chai = require ("chai");
+var chaiAsPromised = require ("chai-as-promised");
+chai.use (chaiAsPromised);
+chai.should ();
+var assert = require ("assert");
+
+require ('colors');
+var wd;
+try {
+    wd = require ('wd');
+} catch (err) {
+    wd = require ('../../lib/main');
+}
+
+// enables chai assertion chaining
+chaiAsPromised.transferPromiseness = wd.transferPromiseness;
+
 var Page = {};
 
 
-Page.Handle = function (driver, testsetp, mode, sleeptime) {
-    try {
-        return this
-            .sleep (sleeptime)
+function reg(data) {
 
-            .then (function () {
-                console.log (mode)
-
-                switch (mode) {
-                    case "Save":
-                        driver
-                            .sleep (100)
-                            .then (function () {
-
-                                console.log (testcase.flow_testcae.log[testsetp])
+    var regdata = data
+        .replace (/<(\w+)[^>]+visible="false"[^>]+>[\W\w]*?<\/\1>/g, "")
+        .replace (/<UIAStatusBar[\W\w]*UIAStatusBar>/g, "")
+        .replace ("获取", "")
+        .replace (/\w+s/g, "")
+        .replace (/\n?\s/g, "");
 
 
-                            })
-                            .source (function (err, source) {
-                                if (err) throw err;
-                                var actual = reg (source);
-                                fs.writeFile ("./testfile/Expect/" + testcase.flow_testcae.log[testsetp], actual, 'Utf-8')
-
-                            })
-                            .saveScreenshot ("./testfile/Expect/" + testcase.flow_testcae.log[testsetp], function (err) {
-                                if (err) throw err;
-
-                            })
-
-                        break;
-
-                    case "Compare":
-
-                        driver
-                            .sleep (100)
-                            .then (function () {
-
-                                console.log (testcase.flow_testcae.log[testsetp])
+    return regdata;
 
 
-                            })
-                            .source (function (err, source) {
-                                if (err) throw err;
-
-                                CompareXml (source, testcase.flow_testcae.log[testsetp])
-
-                            })
-                            .saveScreenshot ("./testfile/Actual/" + testcase.flow_testcae.log[testsetp], function (err) {
-                                if (err) throw err;
-
-                            })
+}
 
 
-                        break;
+function CompareXml(source, testsetp) {
+
+    fs.readFile ("./testfile/Expect/" + testcase.flow_testcase.log[testsetp], "Utf-8", function (err, data) {
+
+        var expect = reg (data)
+        assert.equal (source, expect);
+
+    })
 
 
-                }
+}
 
 
-            })
-            .sleep (2 * sleeptime)
-    } catch (e) {
-        console.log (e.stack);
-    }
+Page.findElement = function findElement(testcase, testsetp) {
+
+    return this
+        .sleep (100)
+        .then (function () {
+
+            console.log (testcase.flow_testcase.log[testsetp])
+
+        })
+        .waitForElement ("xpath", testcase.flow_testcase.Xpath[testsetp], 8000, 100)
+
+
+}
+
+Page.Handle = function (driver, testcase, testsetp, mode, sleeptime) {
+
+    return this
+        .sleep (sleeptime)
+
+        .then (function () {
+
+            switch (mode) {
+
+                case "Expect":
+                    driver
+                        .sleep (100)
+                        .saveScreenshot ("./testfile/Expect/" + testcase.flow_testcase.log[testsetp], function (err) {
+                            if (err) throw err;
+
+                        })
+                        .source (function (err, source) {
+                            if (err) throw err;
+                            var actual = reg (source);
+                            fs.writeFile ("./testfile/Expect/" + testcase.flow_testcase.log[testsetp], actual, 'Utf-8')
+
+                        })
+
+                    break;
+
+                case "Actual":
+
+                    driver
+                        .sleep (100)
+
+                        .saveScreenshot ("./testfile/Actual/" + testcase.flow_testcase.log[testsetp], function (err) {
+                            if (err) throw err;
+
+                        })
+                        .source (function (err, source) {
+                            if (err) throw err;
+
+                            var actual = reg (source);
+                            fs.writeFile ("./testfile/Actual/" + testcase.flow_testcase.log[testsetp], actual, 'Utf-8')
+
+                        })
+
+                    break;
+
+
+            }
+
+
+        })
+        .sleep (sleeptime)
+
 }
 
 
