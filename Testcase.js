@@ -8,12 +8,13 @@ module.exports = {
 
         Xpath: [
             "//UIAApplication[1]/UIAWindow[1]/UIAElement[1]",
+            "//UIAApplication[1]/UIAWindow[1]/UIAElement[1]",
             "//UIAApplication[1]/UIAWindow[1]/UIAElement[1]"
         ],
         log: [
             "1)验证登录",
-            "2)点击添加病历.txt.txt"
-
+            "2)点击添加病历",
+            "3)点击拍摄"
         ]
 
 

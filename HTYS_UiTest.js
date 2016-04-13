@@ -143,32 +143,35 @@ describe ("<<<<<<<<<<<<<<<<<<<<<<<<<<海苔健康(医生版)自动化测试>>>>>
     //
     //})
 
-    //before(function(done){
-    //
-    //    driver
-    //    //.elementByXPath("//UIAApplication[1]/UIAWindow[1]/UIAElement[1]").click()
-    //    //    .FindElement (testcase, 0).click ()
-    //    //    .PageHandle (driver, testcase, 0, "Compare", 1000)
-    //    //    .FindElement (testcase, 1).click ()
-    //        .PageHandle (driver, testcase, 1, "Actual", 1000)
-    //
-    //
-    //        //.ElementXpathHandle (driver, testcase, 0, "Save", 1000).click ()
-    //        //.waitForElement ("xpath", "//UIAApplication[1]/UIAWindow[1]/UIAElement[1]", 8000, 100).click ()
-    //        //.PageHandle (driver, testcaseLength, "Save", 1000)
-    //        //.then (function () {
-    //        //
-    //        //    console.log ("xxx");
-    //        //    driver.PageHandle (driver, 0, "Save", 1000)
-    //        //
-    //        //})
-    //
-    //
-    //        .sleep (8000)
-    //        .nodeify (done)
-    //
-    //
-    //})
+
+    before(function(done){
+
+        driver
+        //.elementByXPath("//UIAApplication[1]/UIAWindow[1]/UIAElement[1]").click()
+            .FindElement (testcase, 0).click ()
+            .PageHandle (driver, testcase, 0, "Actual", 1000)
+            .FindElement (testcase, 1).click ()
+            .PageHandle (driver, testcase, 1, "Actual", 1000)
+            .FindElement (testcase, 2).click ()
+            .PageHandle (driver, testcase, 2, "Actual", 1000)
+
+
+            //.ElementXpathHandle (driver, testcase, 0, "Save", 1000).click ()
+            //.waitForElement ("xpath", "//UIAApplication[1]/UIAWindow[1]/UIAElement[1]", 8000, 100).click ()
+            //.PageHandle (driver, testcaseLength, "Save", 1000)
+            //.then (function () {
+            //
+            //    console.log ("xxx");
+            //    driver.PageHandle (driver, 0, "Save", 1000)
+            //
+            //})
+
+
+            .sleep (8000)
+            .nodeify (done)
+
+
+    })
 
 
     it ("测试", function (done) {
@@ -181,7 +184,7 @@ describe ("<<<<<<<<<<<<<<<<<<<<<<<<<<海苔健康(医生版)自动化测试>>>>>
                 var data = fs.readFileSync ('./testfile/Actual/' + file, "Utf-8")
 
                 Actualarr.push (data)
-                console.log (Actualarr)
+                //console.log (Actualarr)
             }
 
 
@@ -194,7 +197,7 @@ describe ("<<<<<<<<<<<<<<<<<<<<<<<<<<海苔健康(医生版)自动化测试>>>>>
                 var data = fs.readFileSync ('./testfile/Expect/' + file, "Utf-8")
 
                 Expectarr.push (data)
-                console.log (Expectarr)
+                //console.log (Expectarr)
             }
 
 

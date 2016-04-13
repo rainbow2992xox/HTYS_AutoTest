@@ -85,7 +85,7 @@ Page.Handle = function (driver, testcase, testsetp, mode, sleeptime) {
                         .source (function (err, source) {
                             if (err) throw err;
                             var actual = reg (source);
-                            fs.writeFile ("./testfile/Expect/" + testcase.flow_testcase.log[testsetp], actual, 'Utf-8')
+                            fs.writeFile ("./testfile/Expect/" + testcase.flow_testcase.log[testsetp] + ".txt", actual, 'Utf-8')
 
                         })
 
@@ -104,7 +104,7 @@ Page.Handle = function (driver, testcase, testsetp, mode, sleeptime) {
                             if (err) throw err;
 
                             var actual = reg (source);
-                            fs.writeFile ("./testfile/Actual/" + testcase.flow_testcase.log[testsetp], actual, 'Utf-8')
+                            fs.writeFile ("./testfile/Actual/" + testcase.flow_testcase.log[testsetp] + ".txt", actual, 'Utf-8')
 
                         })
 
