@@ -11,6 +11,9 @@ var assert = require ("assert");
 var testcase = require ("./Testcase");
 var fs = require ("fs");
 var page = require ('./wdFunction')
+var co = require("co");
+
+
 
 require ('colors');
 var wd;
@@ -29,35 +32,6 @@ chai.should ();
 chaiAsPromised.transferPromiseness = wd.transferPromiseness;
 
 
-function reg(data) {
-
-    var regdata = data
-        .replace (/<(\w+)[^>]+visible="false"[^>]+>[\W\w]*?<\/\1>/g, "")
-        .replace (/<UIAStatusBar[\W\w]*UIAStatusBar>/, "")
-        .replace ("获取", "")
-        .replace (/\w+s/, "")
-        .replace (/\r\n/, "")
-
-
-    return regdata;
-
-
-}
-
-
-function CompareXml(source, testsetp) {
-
-    fs.readFile ("./testfile/Expect/" + testcase.flow_testcase.log[testsetp], function (err, data) {
-
-        var expect = Reg (data)
-
-        assert.deepEqual (source, expect);
-
-    })
-
-
-}
-
 
 wd.addPromiseChainMethod (
     'PageHandle',
@@ -70,17 +44,6 @@ wd.addPromiseChainMethod (
 );
 
 
-//wd.addPromiseChainMethod (
-//    'ElementXpathHandle',
-//    function (driver, testcase, testsetp, mode, sleeptime, method) {
-//
-//        return this
-//            .FindElement (testcase, testsetp)
-//            .PageHandle (driver, testcase, testsetp, mode, sleeptime)
-//
-//
-//    }
-//);
 
 
 //测试设备
