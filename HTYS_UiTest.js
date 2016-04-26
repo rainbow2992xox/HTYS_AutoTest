@@ -72,19 +72,16 @@ describe ("<<<<<<<<<<<<<<<<<<<<<<<<<<海苔健康(医生版)自动化测试>>>>>
     });
 
     //before (function (done) {
-    //    RecsetCB (function () {
+    //    driver
+    //         .installAppOnDevice("./Users/linmengbo/Downloads/Practice.ipa", function(err){
     //
-    //        setTimeout (function () {
-    //
-    //            console.log ("数据库初始化完成");
-    //            console.log ("   ###########################################################################");
-    //            done ()
-    //        }, 2000);
-    //
-    //
-    //    });
+    //             console.log(err.stack)
+    //             done()
+    //         })
     //
     //})
+
+
     //
     //
     //before (function (done) {
@@ -106,18 +103,40 @@ describe ("<<<<<<<<<<<<<<<<<<<<<<<<<<海苔健康(医生版)自动化测试>>>>>
     //
     //})
 
+    var mode = "Expect"
 
     before(function(done){
 
         driver
         //.elementByXPath("//UIAApplication[1]/UIAWindow[1]/UIAElement[1]").click()
             .FindElement (testcase, 0).click ()
-            .PageHandle (driver, testcase, 0, "Actual", 1000)
-            .FindElement (testcase, 1).click ()
-            .PageHandle (driver, testcase, 1, "Actual", 1000)
-            .FindElement (testcase, 2).click ()
-            .PageHandle (driver, testcase, 2, "Actual", 1000)
+            .PageHandle (driver, testcase, 0, mode, 1000)
+            .FindElement (testcase, 1).setImmediateValue ("13636694202")
+            .PageHandle (driver, testcase, 1, mode, 1000)
+            .FindElement (testcase, 2).setImmediateValue ("1234")
+            .PageHandle (driver, testcase, 2, mode, 1000)
+            .FindElement (testcase, 3).click()
+            //.PageHandle (driver, testcase, 3, mode, 1000)
+            .then(function(){
+                Query ("security_code_doctor_13636694202_2", 'get', 'test', config.url.couchbase8091, function(result){
+                driver
 
+                    .FindElement (testcase, 4).setImmediateValue(result.value.code)
+                    //.PageHandle (driver, testcase, 4, mode, 1000)
+                    .FindElement (testcase, 5).setImmediateValue("1234")
+                    //.PageHandle (driver, testcase, 5, mode, 1000)
+                    .FindElement (testcase, 6).click()
+                    .PageHandle (driver, testcase, 6, mode, 1000)
+
+                    .sleep (4000)
+                    .nodeify (done)
+
+
+                })
+
+
+
+            })
 
             //.ElementXpathHandle (driver, testcase, 0, "Save", 1000).click ()
             //.waitForElement ("xpath", "//UIAApplication[1]/UIAWindow[1]/UIAElement[1]", 8000, 100).click ()
@@ -130,8 +149,7 @@ describe ("<<<<<<<<<<<<<<<<<<<<<<<<<<海苔健康(医生版)自动化测试>>>>>
             //})
 
 
-            .sleep (8000)
-            .nodeify (done)
+
 
 
     })
