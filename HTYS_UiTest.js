@@ -72,16 +72,19 @@ describe ("<<<<<<<<<<<<<<<<<<<<<<<<<<海苔健康(医生版)自动化测试>>>>>
     });
 
     //before (function (done) {
-    //    driver
-    //         .installAppOnDevice("./Users/linmengbo/Downloads/Practice.ipa", function(err){
+    //    RecsetCB (function () {
     //
-    //             console.log(err.stack)
-    //             done()
-    //         })
+    //        setTimeout (function () {
+    //
+    //            console.log ("数据库初始化完成");
+    //            console.log ("   ###########################################################################");
+    //            done ()
+    //        }, 2000);
+    //
+    //
+    //    });
     //
     //})
-
-
     //
     //
     //before (function (done) {
@@ -116,20 +119,22 @@ describe ("<<<<<<<<<<<<<<<<<<<<<<<<<<海苔健康(医生版)自动化测试>>>>>
             .FindElement (testcase, 2).setImmediateValue ("1234")
             .PageHandle (driver, testcase, 2, mode, 1000)
             .FindElement (testcase, 3).click()
-            //.PageHandle (driver, testcase, 3, mode, 1000)
+            .PageHandle (driver, testcase, 3, mode, 1000)
             .then(function(){
+                console.log("xxxxxx")
                 Query ("security_code_doctor_13636694202_2", 'get', 'test', config.url.couchbase8091, function(result){
-                driver
+                    console.log(result)
+                    driver
 
-                    .FindElement (testcase, 4).setImmediateValue(result.value.code)
-                    //.PageHandle (driver, testcase, 4, mode, 1000)
-                    .FindElement (testcase, 5).setImmediateValue("1234")
-                    //.PageHandle (driver, testcase, 5, mode, 1000)
-                    .FindElement (testcase, 6).click()
-                    .PageHandle (driver, testcase, 6, mode, 1000)
+                        .FindElement (testcase, 4).setImmediateValue(result.value.code)
+                        //.PageHandle (driver, testcase, 4, mode, 1000)
+                        .FindElement (testcase, 5).setImmediateValue("1234")
+                        //.PageHandle (driver, testcase, 5, mode, 1000)
+                        .FindElement (testcase, 6).click()
+                        .PageHandle (driver, testcase, 6, mode, 1000)
 
-                    .sleep (4000)
-                    .nodeify (done)
+                        .sleep (4000)
+                        .nodeify (done)
 
 
                 })
@@ -138,15 +143,15 @@ describe ("<<<<<<<<<<<<<<<<<<<<<<<<<<海苔健康(医生版)自动化测试>>>>>
 
             })
 
-            //.ElementXpathHandle (driver, testcase, 0, "Save", 1000).click ()
-            //.waitForElement ("xpath", "//UIAApplication[1]/UIAWindow[1]/UIAElement[1]", 8000, 100).click ()
-            //.PageHandle (driver, testcaseLength, "Save", 1000)
-            //.then (function () {
-            //
-            //    console.log ("xxx");
-            //    driver.PageHandle (driver, 0, "Save", 1000)
-            //
-            //})
+        //.ElementXpathHandle (driver, testcase, 0, "Save", 1000).click ()
+        //.waitForElement ("xpath", "//UIAApplication[1]/UIAWindow[1]/UIAElement[1]", 8000, 100).click ()
+        //.PageHandle (driver, testcaseLength, "Save", 1000)
+        //.then (function () {
+        //
+        //    console.log ("xxx");
+        //    driver.PageHandle (driver, 0, "Save", 1000)
+        //
+        //})
 
 
 
